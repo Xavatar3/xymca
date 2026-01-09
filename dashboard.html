@@ -8,21 +8,25 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background: #f2f2f2;
+    background: #ffffff;
     min-width: 600px;
     font-size: 13px;
     color: #000;
     user-select: none;
     height: 100vh;
+    padding: 0 8px;
 }
 
 .blue_bg { background-color: blue; }
 
 /* --- Banner --- */
 #banner {
+	border: solid 1.8px blue;
     display: flex;
     justify-content: space-between;
     height: 60px;
+    background-color: #ffffff;
+    margin: 3px 0;
 }
 
 #banner > div { height: 100%; }
@@ -47,8 +51,12 @@ body {
 
 /* --- Navigation --- */
 nav {
+	background-color: #c2e2ef;
+	border: solid 1px #999;
+		border-radius: 5px;
     display: flex;
-    height: 7vh;
+    height: 100px;
+    margin: 5px 0;
 }
 
 nav div, nav a {
@@ -61,7 +69,6 @@ nav div, nav a {
 }
 nav div{
 	border: solid 1px #999;
-	background-color: #c2e2ef;
 }
 
 /* --- Info & Summary --- */
@@ -70,12 +77,23 @@ nav div{
     justify-content: space-between;
     padding: 5px 10px;
 }
+#mini_info{
+	background-color: #ffffff;
+}
+#mini_summary{
+	background-color: #fff;
+	border: solid 1px;
+	margin: 5px 0;
+	height: 25px;
+}
 
 #heading_banner {
-    height: 5vh;
+		border-bottom: solid 1.7px #335;
+    height: 40px;
     display: flex;
     justify-content: center;
     color: #fff;
+    margin-bottom: 10px;
 }
 #mini_heading_banner{
 		display: flex;
@@ -83,17 +101,25 @@ nav div{
     border-top-left-radius: 7px;
     border-top-right-radius: 7px;
     padding: 0 3%;
-    width: 25vh;
+    max-width: 150px;
 }
 
 #currentDate { color: red; }
 
-#options select { margin-right: 10px; }
+#options{
+	height: 40px;
+}
+
+#options select { 
+	height: 90%;
+	width: 50px;
+	margin-right: 10px;
+	}
 
 /* --- Results Table --- */
 #resultsWrapper {
-    max-width: 90vh;
-    max-height: 200px;
+    max-width: 97vw;
+    max-height: 500px;
     overflow: auto;
     border: 1px solid #000;
     background: #fff;
@@ -107,6 +133,7 @@ nav div{
 #results td {
     border: 1px solid #000;
     padding: 6px;
+    height: 20%;
     white-space: nowrap;
 }
 
@@ -131,6 +158,13 @@ footer {
 @media print {
     nav, footer, button, input, select { display: none; }
     body { background: #fff; }
+}
+#results_section{
+	background-color: #c2e2ef;
+	border: 1px solid #999;
+	border-radius: 7px;
+	padding: 5px;
+	margin: 5px 0;
 }
 </style>
 </head>
@@ -159,10 +193,10 @@ document.addEventListener("contextmenu", e => e.preventDefault());
 
     <!-- Navigation -->
     <nav>
-        <div><a>Control Panel</a></div>
-        <div><a>My Notifications</a></div>
-        <div><a>My Profile</a></div>
-        <div><a>Results Center</a></div>
+        <div><a>🏛️<br> Control Panel</a></div>
+        <div><a>🔔<br>My Notifications</a></div>
+        <div><a>👤<br> My Profile</a></div>
+        <div><a>📊 <br>Results Center</a></div>
     </nav>
 
     <!-- Mini Info -->
@@ -171,10 +205,10 @@ document.addEventListener("contextmenu", e => e.preventDefault());
         <span>
             <span id="studentName">KISOZI ABDUL HAKIM</span> |
             <span id="logoutBtn" style="cursor:pointer;color:red;">Logout</span> |
-            <span>Change Password</span>
+            <span>Change Password🔑</span>
         </span>
     </div>
-
+		<div id="results_section">
     <!-- Results Heading -->
     <div id="heading_banner">
 			<div id="mini_heading_banner" class="blue_bg">
@@ -198,7 +232,7 @@ document.addEventListener("contextmenu", e => e.preventDefault());
 
     <!-- Search -->
     <div>
-        <input type="text" id="searchInput" placeholder="Enter text to search">
+        <input type="text" id="searchInput" placeholder="🔍Enter text to search">
     </div>
 
     <!-- Results Table -->
@@ -268,6 +302,8 @@ document.addEventListener("contextmenu", e => e.preventDefault());
         <strong>CGPA:</strong> 4.47 |
         <strong>Current Class:</strong> —
     </div>
+    		</div>
+
 
     <!-- Footer -->
     <footer>
