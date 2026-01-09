@@ -54,30 +54,52 @@ body {
     border: none;
     cursor: pointer;
 }
+
+.login-button:hover {
+    background: #2b557f;
+}
 </style>
 </head>
 
 <body>
 
 <div class="login-wrapper">
-    <div class="login-box">
-
+    <form class="login-box" id="loginForm">
         <img src="COOPERP/images/welcomelogo.png" class="logo" alt="Welcome"><br>
 
-        <input type="text" placeholder="User Name"><br>
-        <input type="password" placeholder="Password"><br>
+        <input type="text" id="username" placeholder="User Name"><br>
+        <input type="password" id="password" placeholder="Password"><br>
 
-        <button class="login-button">
+        <button type="submit" class="login-button">
             <img src="COOPERP/images/tick-shield.png" alt="" style="vertical-align:middle;margin-right:5px;">
             Login
-        </button>
+        </button><br><br><br>
+        <div id="msg"></div>
 
         <br><br>
 
         <img src="COOPERP/images/campus_dynamix_logo.png" style="height:80px;width:155px;" alt="Campus Dynamics">
-
-    </div>
+    </form>
 </div>
 
+<script>
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // Prevent page reload
+
+    const username = document.getElementById('username').value;
+    const password = document.getElementById('password').value;
+    const msg = document.getElementById('msg');
+
+    if(username === '2025016151' && password === '1234') {
+        msg.innerText='Login successful! ✅' 
+        // Optional: redirect to another page
+				localStorage.setItem("isLoggedIn", "true");
+				localStorage.setItem("username", "2025016151");
+        window.location.href = 'dashboard.html';
+    } else {
+        msg.innerText = 'Invalid username or password ❌';
+    }
+});
+</script>
 </body>
 </html>

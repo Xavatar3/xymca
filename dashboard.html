@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Dashboard</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+    height: 100vh;
+    user-select: none;
+    font-size: 13px;
+    color: #000;
+}
+
+.blue_bg {
+    background-color: blue;
+}
+
+#trapezoid_banner {
+    display: inline-block;
+    height: 45px;
+    width: 250px;
+}
+
+#rectangular_banner {
+    height: 45px;
+    width: 100%;
+}
+
+nav a {
+    margin-right: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#results {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#results td {
+    padding: 6px;
+    border: solid 1px #000;
+}
+
+#results tr:hover {
+    background-color: orange;
+}
+#resultsWrapper {
+    max-width: 100%;
+    max-height: 200px;   /* adjust to taste */
+    overflow: auto;
+    border: 1px solid #000;
+    background: #fff;
+}
+#results td {
+    white-space: nowrap;
+}
+
+#results tr:first-child td {
+    position: sticky;
+    top: 0;
+    background: #e6e6e6;
+    z-index: 2;
+}
+#resultsWrapper::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+}
+#portal {
+    width: 1024px;
+    margin: 0 auto;
+    background: #fff;
+    min-height: 100vh;
+    border-left: 1px solid #999;
+    border-right: 1px solid #999;
+}
+#banner{
+	display: flex;
+	justify-content: space-between;
+	flex: 0 1 auto;
+	width: 100%;
+	height: 50px;
+}
+#banner > * { border: solid 3px; }
+#banner > div{
+	height: 100%;
+}
+#banner img {
+    height: 100%;
+    width: 20px;
+    width: auto;
+    object-fit: contain;
+}
+@media print {
+    nav, footer, button, input, select {
+        display: none;
+    }
+    body {
+        background: #fff;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<script>
+if (localStorage.getItem("isLoggedIn") !== "true") {
+    window.location.replace("index.html");
+}
+document.addEventListener("contextmenu", e => e.preventDefault());
+</script>
+
+<div>
+    <div id="banner">
+        <div style="flex: 1;">
+            <img src="/COOPERP/images/campus_dynamix_logo.png" alt="Campus Dynamics">
+        </div>
+        <div id="trapezoid_banner" class="blue_bg" style="flex: 4;"></div>
+        <div style="flex: 1;">
+            <img src="/COOPERP/images/welcomelogo.png" alt="Welcome">
+        </div>
+    </div>
+
+    <div id="rectangular_banner" class="blue_bg"></div>
+
+    <nav>
+        <a>Control Panel</a>
+        <a>My Notifications</a>
+        <a>My Profile</a>
+        <a>Results Center</a>
+    </nav>
+
+    <div>
+		<span id="currentDate"></span> |
+        <span id="studentName">KISOZI ABDUL HAKIM</span> |
+        <span id="logoutBtn" style="cursor:pointer;color:red;">Logout</span> |
+        <span>Change Password</span>
+    </div>
+
+    <h3>Examination Results</h3>
+
+    <div>
+        <label>Year of Study</label>
+        <select>
+            <option>1</option>
+        </select>
+
+        <label>Semester</label>
+        <select>
+            <option>1</option>
+        </select>
+
+        <button onclick="window.print()">🖨️ Print Results Statement</button>
+    </div>
+
+    <div>
+			<input type="text" id="searchInput" placeholder="Enter text to search">
+    </div>
+
+		<div id="resultsWrapper">
+			<table id="results">
+        <tr>
+            <td>#</td>
+            <td>Code</td>
+            <td>Course Name</td>
+            <td>Credit Units</td>
+            <td>Academic Year</td>
+            <td>Mark</td>
+            <td>Grade</td>
+            <td>Grade Pt</td>
+            <td>Comment</td>
+        </tr>
+
+        <tr>
+            <td>1</td>
+            <td>CSC113</td>
+            <td>Computer Applications I</td>
+            <td>3.00</td>
+            <td>2025/2026</td>
+            <td>88</td>
+            <td>A</td>
+            <td>5.0</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>2</td>
+            <td>CPF128</td>
+            <td>Domestic Water Supply Practice II</td>
+            <td>4.00</td>
+            <td>2025/2026</td>
+            <td>79</td>
+            <td>B+</td>
+            <td>4.5</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>3</td>
+            <td>CPF129</td>
+            <td>Domestic Water Supply Theory II</td>
+            <td>4.00</td>
+            <td>2025/2026</td>
+            <td>73</td>
+            <td>B</td>
+            <td>4.0</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td>4</td>
+            <td>CPF127</td>
+            <td>Technical Drawing I</td>
+            <td>4.00</td>
+            <td>2025/2026</td>
+            <td>79</td>
+            <td>B+</td>
+            <td>4.5</td>
+            <td></td>
+        </tr>
+    </table>
+		</div>
+
+    <div>
+        <strong>GPA:</strong> 4.47 |
+        <strong>CGPA:</strong> 4.47 |
+        <strong>Current Class:</strong> —
+    </div>
+
+    <footer>
+        <span>©2025 New Line Technologies Limited</span> |
+        <span>Support: tech@ntl.co.ug</span>
+    </footer>
+</div>
+
+<script>
+document.getElementById("logoutBtn").addEventListener("click", function () {
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("username");
+    window.location.replace("index.html");
+});
+
+window.history.pushState(null, null, window.location.href);
+window.onpopstate = function () {
+    window.history.go(1);
+};
+</script>
+<script>
+const dateEl = document.getElementById("currentDate");
+const today = new Date();
+
+dateEl.textContent = today.toLocaleDateString("en-GB", {
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+    year: "numeric"
+});
+</script>
+
+</body>
+</html>
