@@ -3,62 +3,114 @@
 <head>
 <meta charset="utf-8">
 <title>Dashboard</title>
-
 <style>
+/* --- Global Styles --- */
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: #f2f2f2;
-    height: 100vh;
-    user-select: none;
+    min-width: 600px;
     font-size: 13px;
     color: #000;
+    user-select: none;
+    height: 100vh;
 }
 
-.blue_bg {
-    background-color: blue;
+.blue_bg { background-color: blue; }
+
+/* --- Banner --- */
+#banner {
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
 }
 
+#banner > div { height: 100%; }
+
+#banner img {
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Trapezoid */
 #trapezoid_banner {
-    display: inline-block;
-    height: 45px;
-    width: 250px;
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid blue;
+    flex: 4;
 }
 
-#rectangular_banner {
-    height: 45px;
-    width: 100%;
+/* Rectangular banner */
+#rectangular_banner { height: 35px; width: 100%; }
+
+/* --- Navigation --- */
+nav {
+    display: flex;
+    height: 7vh;
 }
 
-nav a {
-    margin-right: 15px;
-    font-weight: bold;
+nav div, nav a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    text-align: center;
     cursor: pointer;
 }
-
-#results {
-    border-collapse: collapse;
-    width: 100%;
+nav div{
+	border: solid 1px #999;
+	background-color: #c2e2ef;
 }
 
-#results td {
-    padding: 6px;
-    border: solid 1px #000;
+/* --- Info & Summary --- */
+#mini_info, #mini_summary, #options {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
 }
 
-#results tr:hover {
-    background-color: orange;
+#heading_banner {
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+    color: #fff;
 }
+#mini_heading_banner{
+		display: flex;
+		justify-content: center;
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    padding: 0 3%;
+    width: 25vh;
+}
+
+#currentDate { color: red; }
+
+#options select { margin-right: 10px; }
+
+/* --- Results Table --- */
 #resultsWrapper {
-    max-width: 100%;
-    max-height: 200px;   /* adjust to taste */
+    max-width: 90vh;
+    max-height: 200px;
     overflow: auto;
     border: 1px solid #000;
     background: #fff;
 }
+
+#results {
+    width: 100%;
+    border-collapse: collapse;
+}
+
 #results td {
+    border: 1px solid #000;
+    padding: 6px;
     white-space: nowrap;
 }
+
+#results tr:hover { background-color: orange; }
 
 #results tr:first-child td {
     position: sticky;
@@ -66,172 +118,158 @@ nav a {
     background: #e6e6e6;
     z-index: 2;
 }
-#resultsWrapper::-webkit-scrollbar {
-    height: 10px;
-    width: 10px;
+
+/* --- Footer --- */
+footer {
+    color: blue;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0;
 }
-#portal {
-    width: 1024px;
-    margin: 0 auto;
-    background: #fff;
-    min-height: 100vh;
-    border-left: 1px solid #999;
-    border-right: 1px solid #999;
-}
-#banner{
-	display: flex;
-	justify-content: space-between;
-	flex: 0 1 auto;
-	width: 100%;
-	height: 50px;
-}
-#banner > * { border: solid 3px; }
-#banner > div{
-	height: 100%;
-}
-#banner img {
-    height: 100%;
-    width: 20px;
-    width: auto;
-    object-fit: contain;
-}
+
+/* --- Misc --- */
 @media print {
-    nav, footer, button, input, select {
-        display: none;
-    }
-    body {
-        background: #fff;
-    }
+    nav, footer, button, input, select { display: none; }
+    body { background: #fff; }
 }
 </style>
 </head>
-
 <body>
 
 <script>
+// Redirect if not logged in
 if (localStorage.getItem("isLoggedIn") !== "true") {
     window.location.replace("index.html");
 }
+
+// Disable right-click
 document.addEventListener("contextmenu", e => e.preventDefault());
 </script>
 
-<div>
-    <div id="banner">
-        <div style="flex: 1;">
-            <img src="/COOPERP/images/campus_dynamix_logo.png" alt="Campus Dynamics">
-        </div>
-        <div id="trapezoid_banner" class="blue_bg" style="flex: 4;"></div>
-        <div style="flex: 1;">
-            <img src="/COOPERP/images/welcomelogo.png" alt="Welcome">
-        </div>
-    </div>
+<div id="portal">
+
+    <!-- Header Banner -->
+    <header id="banner">
+        <div><img src="/COOPERP/images/campus_dynamix_logo.png" alt="Campus Dynamics"></div>
+        <div id="trapezoid_banner"></div>
+        <div><img src="/COOPERP/images/welcomelogo.png" alt="Welcome"></div>
+    </header>
 
     <div id="rectangular_banner" class="blue_bg"></div>
 
+    <!-- Navigation -->
     <nav>
-        <a>Control Panel</a>
-        <a>My Notifications</a>
-        <a>My Profile</a>
-        <a>Results Center</a>
+        <div><a>Control Panel</a></div>
+        <div><a>My Notifications</a></div>
+        <div><a>My Profile</a></div>
+        <div><a>Results Center</a></div>
     </nav>
 
-    <div>
-		<span id="currentDate"></span> |
-        <span id="studentName">KISOZI ABDUL HAKIM</span> |
-        <span id="logoutBtn" style="cursor:pointer;color:red;">Logout</span> |
-        <span>Change Password</span>
+    <!-- Mini Info -->
+    <div id="mini_info">
+        <span id="currentDate"></span>
+        <span>
+            <span id="studentName">KISOZI ABDUL HAKIM</span> |
+            <span id="logoutBtn" style="cursor:pointer;color:red;">Logout</span> |
+            <span>Change Password</span>
+        </span>
     </div>
 
-    <h3>Examination Results</h3>
-
-    <div>
-        <label>Year of Study</label>
-        <select>
-            <option>1</option>
-        </select>
-
-        <label>Semester</label>
-        <select>
-            <option>1</option>
-        </select>
-
-        <button onclick="window.print()">🖨️ Print Results Statement</button>
+    <!-- Results Heading -->
+    <div id="heading_banner">
+			<div id="mini_heading_banner" class="blue_bg">
+        <h3>Examination Results</h3>
+			</div>
     </div>
 
-    <div>
-			<input type="text" id="searchInput" placeholder="Enter text to search">
+    <!-- Options -->
+    <div id="options">
+        <div>
+            <label>Year of Study</label>
+            <select><option>1</option></select>
+
+            <label>Semester</label>
+            <select><option>1</option></select>
+        </div>
+        <div>
+            <button onclick="window.print()">🖨️ Print Results Statement</button>
+        </div>
     </div>
 
-		<div id="resultsWrapper">
-			<table id="results">
-        <tr>
-            <td>#</td>
-            <td>Code</td>
-            <td>Course Name</td>
-            <td>Credit Units</td>
-            <td>Academic Year</td>
-            <td>Mark</td>
-            <td>Grade</td>
-            <td>Grade Pt</td>
-            <td>Comment</td>
-        </tr>
-
-        <tr>
-            <td>1</td>
-            <td>CSC113</td>
-            <td>Computer Applications I</td>
-            <td>3.00</td>
-            <td>2025/2026</td>
-            <td>88</td>
-            <td>A</td>
-            <td>5.0</td>
-            <td></td>
-        </tr>
-
-        <tr>
-            <td>2</td>
-            <td>CPF128</td>
-            <td>Domestic Water Supply Practice II</td>
-            <td>4.00</td>
-            <td>2025/2026</td>
-            <td>79</td>
-            <td>B+</td>
-            <td>4.5</td>
-            <td></td>
-        </tr>
-
-        <tr>
-            <td>3</td>
-            <td>CPF129</td>
-            <td>Domestic Water Supply Theory II</td>
-            <td>4.00</td>
-            <td>2025/2026</td>
-            <td>73</td>
-            <td>B</td>
-            <td>4.0</td>
-            <td></td>
-        </tr>
-
-        <tr>
-            <td>4</td>
-            <td>CPF127</td>
-            <td>Technical Drawing I</td>
-            <td>4.00</td>
-            <td>2025/2026</td>
-            <td>79</td>
-            <td>B+</td>
-            <td>4.5</td>
-            <td></td>
-        </tr>
-    </table>
-		</div>
-
+    <!-- Search -->
     <div>
+        <input type="text" id="searchInput" placeholder="Enter text to search">
+    </div>
+
+    <!-- Results Table -->
+    <div id="resultsWrapper">
+        <table id="results">
+            <tr>
+                <td>#</td>
+                <td>Code</td>
+                <td>Course Name</td>
+                <td>Credit Units</td>
+                <td>Academic Year</td>
+                <td>Mark</td>
+                <td>Grade</td>
+                <td>Grade Pt</td>
+                <td>Comment</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>CSC113</td>
+                <td>Computer Applications I</td>
+                <td>3.00</td>
+                <td>2025/2026</td>
+                <td>88</td>
+                <td>A</td>
+                <td>5.0</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>CPF128</td>
+                <td>Domestic Water Supply Practice II</td>
+                <td>4.00</td>
+                <td>2025/2026</td>
+                <td>79</td>
+                <td>B+</td>
+                <td>4.5</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>CPF129</td>
+                <td>Domestic Water Supply Theory II</td>
+                <td>4.00</td>
+                <td>2025/2026</td>
+                <td>73</td>
+                <td>B</td>
+                <td>4.0</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>CPF127</td>
+                <td>Technical Drawing I</td>
+                <td>4.00</td>
+                <td>2025/2026</td>
+                <td>79</td>
+                <td>B+</td>
+                <td>4.5</td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Summary -->
+    <div id="mini_summary">
         <strong>GPA:</strong> 4.47 |
         <strong>CGPA:</strong> 4.47 |
         <strong>Current Class:</strong> —
     </div>
 
+    <!-- Footer -->
     <footer>
         <span>©2025 New Line Technologies Limited</span> |
         <span>Support: tech@ntl.co.ug</span>
@@ -239,21 +277,20 @@ document.addEventListener("contextmenu", e => e.preventDefault());
 </div>
 
 <script>
-document.getElementById("logoutBtn").addEventListener("click", function () {
+// Logout
+document.getElementById("logoutBtn").addEventListener("click", () => {
     localStorage.removeItem("isLoggedIn");
     localStorage.removeItem("username");
     window.location.replace("index.html");
 });
 
+// Prevent back navigation
 window.history.pushState(null, null, window.location.href);
-window.onpopstate = function () {
-    window.history.go(1);
-};
-</script>
-<script>
+window.onpopstate = () => window.history.go(1);
+
+// Current Date
 const dateEl = document.getElementById("currentDate");
 const today = new Date();
-
 dateEl.textContent = today.toLocaleDateString("en-GB", {
     weekday: "long",
     day: "numeric",
